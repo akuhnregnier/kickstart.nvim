@@ -911,6 +911,11 @@ require('lazy').setup({
     end,
   },
   { 'windwp/nvim-autopairs', event = 'InsertEnter', config = true },
+  {
+    'chrisgrieser/nvim-various-textobjs',
+    lazy = false,
+    opts = { useDefaultKeymaps = true },
+  },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
