@@ -910,6 +910,7 @@ require('lazy').setup({
       vim.cmd 'autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()'
     end,
   },
+  { 'windwp/nvim-autopairs', event = 'InsertEnter', config = true },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
