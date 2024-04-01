@@ -564,7 +564,10 @@ require('lazy').setup({
           settings = {
             python = {
               analysis = {
+                autoImportCompletions = true,
+                autoSearchPaths = true,
                 typeCheckingMode = 'strict',
+                useLibraryCodeForTypes = true,
               },
             },
           },
