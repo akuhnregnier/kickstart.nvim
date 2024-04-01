@@ -213,6 +213,19 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
+-- Python options
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'python',
+  callback = function()
+    vim.opt_local.expandtab = true
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.tabstop = 4
+    vim.opt_local.softtabstop = 4
+    vim.opt_local.foldmethod = 'indent'
+    vim.opt_local.foldenable = false
+  end,
+})
+
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
