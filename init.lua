@@ -593,6 +593,17 @@ require('lazy').setup({
             },
           },
         },
+        taplo = {
+          capabilities = capabilities,
+        },
+        ruff_lsp = {
+          settings = {
+            organizeImports = true,
+          },
+          on_attach = function(client)
+            client.server_capabilities.hoverProvider = false
+          end,
+        },
       }
 
       -- Ensure the servers and tools above are installed
