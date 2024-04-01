@@ -665,6 +665,7 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         python = { 'ruff_format' },
+        markdown = { 'injected', 'trim_whitespace' },
         ['_'] = { 'trim_whitespace' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
