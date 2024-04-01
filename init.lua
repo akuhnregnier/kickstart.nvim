@@ -917,6 +917,20 @@ require('lazy').setup({
     lazy = false,
     opts = { useDefaultKeymaps = true },
   },
+  { 'mechatroner/rainbow_csv', version = '4.3' },
+  { 'niuiic/code-shot.nvim', dependencies = { 'niuiic/core.nvim' } },
+  { 'AndrewRadev/linediff.vim', version = 'v0.3' },
+  { 'ggandor/leap.nvim' },
+  { 'ThePrimeagen/harpoon', branch = 'harpoon2', dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' } },
+  {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    ft = { 'markdown' },
+    build = function()
+      vim.fn['mkdp#util#install']()
+    end,
+  },
+  { 'jikkujose/vim-visincr' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
