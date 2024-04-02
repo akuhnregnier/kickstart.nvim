@@ -829,7 +829,19 @@ require('lazy').setup({
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
+      require('mini.surround').setup {
+        mappings = {
+          add = 'gza',
+          delete = 'gzd',
+          find = 'gzf',
+          find_left = 'gzF',
+          highlight = 'gzh',
+          replace = 'gzr',
+          update_n_lines = 'gzn',
+          suffix_last = 'l',
+          suffix_next = 'n',
+        },
+      }
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
@@ -925,12 +937,46 @@ require('lazy').setup({
   {
     'chrisgrieser/nvim-various-textobjs',
     lazy = false,
-    opts = { useDefaultKeymaps = true },
+    opts = {
+      useDefaultKeymaps = true,
+      disabledKeymaps = { 'gc' },
+    },
   },
   { 'mechatroner/rainbow_csv', version = '4.3' },
-  { 'niuiic/code-shot.nvim', dependencies = { 'niuiic/core.nvim' } },
+  {
+    'niuiic/code-shot.nvim',
+    dependencies = { 'niuiic/core.nvim' },
+    config = function()
+      require('which-key').register {
+        ['<leader>cs'] = {
+          "<cmd>lua require('code-shot').shot()<CR>",
+          'code-shot',
+        },
+      }
+    end,
+  },
   { 'AndrewRadev/linediff.vim', version = 'v0.3' },
-  { 'ggandor/leap.nvim' },
+  {
+    'ggandor/leap.nvim',
+    config = function()
+      require('leap').create_default_mappings()
+      -- Hide the (real) cursor when leaping, and restore it afterwards.
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'LeapEnter',
+        callback = function()
+          vim.cmd.hi('Cursor', 'blend=100')
+          vim.opt.guicursor:append { 'a:Cursor/lCursor' }
+        end,
+      })
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'LeapLeave',
+        callback = function()
+          vim.cmd.hi('Cursor', 'blend=0')
+          vim.opt.guicursor:remove { 'a:Cursor/lCursor' }
+        end,
+      })
+    end,
+  },
   { 'ThePrimeagen/harpoon', branch = 'harpoon2', dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' } },
   {
     'iamcco/markdown-preview.nvim',
