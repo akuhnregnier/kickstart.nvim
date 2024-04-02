@@ -1069,7 +1069,7 @@ require('lazy').setup({
     lazy = false,
     opts = {
       useDefaultKeymaps = true,
-      disabledKeymaps = { 'gc' },
+      disabledKeymaps = { 'gc', 'gw' },
     },
   },
   { 'mechatroner/rainbow_csv', version = '4.3' },
