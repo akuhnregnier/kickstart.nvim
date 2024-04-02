@@ -723,12 +723,25 @@ require('lazy').setup({
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      {
+        'onsails/lspkind.nvim',
+        config = function()
+          local lspkind = require 'lspkind'
+          lspkind.init {
+            symbol_map = {
+              Copilot = '',
+            },
+          }
+          vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#6CC644' })
+        end,
+      },
     },
     config = function()
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
+      local lspkind = require 'lspkind'
 
       cmp.setup {
         snippet = {
@@ -785,9 +798,31 @@ require('lazy').setup({
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },
         sources = {
+          { name = 'copilot' },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
+        },
+        formatting = {
+          format = lspkind.cmp_format {
+            mode = 'symbol',
+          },
+        },
+        sorting = {
+          priority_weight = 2,
+          comparators = {
+            cmp.config.compare.exact,
+            cmp.config.compare.offset,
+            cmp.config.compare.locality,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            require('copilot_cmp.comparators').prioritize,
+            -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+          },
         },
       }
     end,
@@ -857,6 +892,7 @@ require('lazy').setup({
       theme = 'gruvbox',
       sections = {
         lualine_b = { 'branch' },
+        lualine_x = { 'copilot', 'encoding', 'fileformat', 'filetype' },
       },
       extensions = {
         'quickfix',
@@ -1078,6 +1114,34 @@ require('lazy').setup({
     end,
   },
   { 'jikkujose/vim-visincr' },
+  {
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
+    config = function()
+      require('copilot').setup {
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      }
+    end,
+  },
+  {
+    'AndreM222/copilot-lualine',
+    dependencies = {
+      'zbirenbaum/copilot.lua',
+      'nvim-lualine/lualine.nvim',
+    },
+  },
+  {
+    'zbirenbaum/copilot-cmp',
+    config = function()
+      require('copilot_cmp').setup()
+    end,
+    dependencies = {
+      'zbirenbaum/copilot.lua',
+      'hrsh7th/nvim-cmp',
+    },
+  },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
