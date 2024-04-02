@@ -320,6 +320,14 @@ require('lazy').setup({
             gs.diffthis '~'
           end, { desc = 'diff this' })
 
+          require('which-key').register { ['<leader>gq'] = { name = '[Q]uickfix', _ = 'which_key_ignore' } }
+          map('n', '<leader>gqa', function()
+            gs.setqflist 'all'
+          end, { desc = 'add all hunks to quickfix' })
+          map('n', '<leader>gqq', function()
+            gs.setqflist()
+          end, { desc = 'add hunks from current buffer to quickfix' })
+
           require('which-key').register { ['<leader>gt'] = { name = '[T]oggle', _ = 'which_key_ignore' } }
           map('n', '<leader>gtb', gs.toggle_current_line_blame, { desc = 'toggle current line blame' })
           map('n', '<leader>gtd', gs.toggle_deleted, { desc = 'toggle deleted' })
