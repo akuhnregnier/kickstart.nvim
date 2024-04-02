@@ -853,7 +853,18 @@ require('lazy').setup({
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    opts = { theme = 'gruvbox', sections = { lualine_b = { 'branch' } } },
+    opts = {
+      theme = 'gruvbox',
+      sections = {
+        lualine_b = { 'branch' },
+      },
+      extensions = {
+        'quickfix',
+        'toggleterm',
+        'fugitive',
+        'lazy',
+      },
+    },
   },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
