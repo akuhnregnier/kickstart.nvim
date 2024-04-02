@@ -915,6 +915,7 @@ require('lazy').setup({
       require('toggleterm').setup {
         open_mapping = [[<leader>t]],
         insert_mappings = false,
+        terminal_mappings = false,
         start_in_insert = true,
         persist_mode = true,
         direction = 'float',
