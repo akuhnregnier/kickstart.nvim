@@ -164,7 +164,7 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>le', vim.diagnostic.open_float, { desc = '[L]SP show diagnostic [E]rror messages' })
+vim.keymap.set('n', 'gl', vim.diagnostic.open_float, { desc = '[L]SP show diagnostic error messages' })
 vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist, { desc = '[L]SP open diagnostic [Q]uickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
