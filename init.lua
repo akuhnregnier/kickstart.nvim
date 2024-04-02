@@ -950,30 +950,34 @@ require('lazy').setup({
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    opts = {
-      theme = 'gruvbox',
-      sections = {
-        lualine_b = { 'branch' },
-        lualine_c = {
-          'filename',
-          '%=',
-          {
-            'harpoon2',
-            indicators = { 'Q', 'W', 'E', 'R' },
-            active_indicators = { '[Q]', '[W]', '[E]', '[R]' },
-            _separator = ' ',
-            no_harpoon = 'Harpoon not loaded',
+    config = function()
+      local verbose_quickfix = vim.deepcopy(require 'lualine.extensions.quickfix')
+      verbose_quickfix.sections.lualine_z = { 'progress', 'location' }
+      require('lualine').setup {
+        theme = 'gruvbox',
+        sections = {
+          lualine_b = { 'branch' },
+          lualine_c = {
+            'filename',
+            '%=',
+            {
+              'harpoon2',
+              indicators = { 'Q', 'W', 'E', 'R' },
+              active_indicators = { '[Q]', '[W]', '[E]', '[R]' },
+              _separator = ' ',
+              no_harpoon = 'Harpoon not loaded',
+            },
           },
+          lualine_x = { 'copilot', 'encoding', 'fileformat', 'filetype' },
         },
-        lualine_x = { 'copilot', 'encoding', 'fileformat', 'filetype' },
-      },
-      extensions = {
-        'quickfix',
-        'toggleterm',
-        'fugitive',
-        'lazy',
-      },
-    },
+        extensions = {
+          verbose_quickfix,
+          'toggleterm',
+          'fugitive',
+          'lazy',
+        },
+      }
+    end,
   },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
