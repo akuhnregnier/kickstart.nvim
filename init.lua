@@ -918,6 +918,7 @@ require('lazy').setup({
   -- { import = 'custom.plugins' },
   { 'lukas-reineke/indent-blankline.nvim', main = 'ibl', opts = {} },
   { 'tpope/vim-fugitive' },
+  { 'tpope/vim-unimpaired' },
   { 'tpope/vim-vinegar' },
   {
     'akinsho/toggleterm.nvim',
