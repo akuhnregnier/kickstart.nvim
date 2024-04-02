@@ -164,8 +164,8 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>le', vim.diagnostic.open_float, { desc = '[L]SP show diagnostic [E]rror messages' })
+vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist, { desc = '[L]SP open diagnostic [Q]uickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -302,10 +302,11 @@ require('lazy').setup({
       require('which-key').register {
         ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
         ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-        ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
         ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-        ['<leader>g'] = { name = 'Git', _ = 'which_key_ignore' },
+        ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
+        ['<leader>h'] = { name = '[H]arpoon', _ = 'which_key_ignore' },
+        ['<leader>l'] = { name = '[L]SP', _ = 'which_key_ignore' },
+        ['gz'] = { name = 'Surround', _ = 'which_key_ignore' },
       }
     end,
   },
@@ -508,11 +509,11 @@ require('lazy').setup({
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+          -- map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
-          map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+          map('<leader>lr', vim.lsp.buf.rename, '[L]SP [R]ename')
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
@@ -979,7 +980,81 @@ require('lazy').setup({
       })
     end,
   },
-  { 'ThePrimeagen/harpoon', branch = 'harpoon2', dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' } },
+  {
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
+    config = function()
+      local harpoon = require 'harpoon'
+      harpoon:setup {}
+
+      -- harpoon telescope
+      local conf = require('telescope.config').values
+      local function toggle_telescope(harpoon_files)
+        local file_paths = {}
+        for _, item in ipairs(harpoon_files.items) do
+          table.insert(file_paths, item.value)
+        end
+
+        require('telescope.pickers')
+          .new({}, {
+            prompt_title = 'Harpoon',
+            finder = require('telescope.finders').new_table {
+              results = file_paths,
+            },
+            previewer = conf.file_previewer {},
+            sorter = conf.generic_sorter {},
+          })
+          :find()
+      end
+
+      -- keys
+      require('which-key').register {
+        ['<leader>q'] = {
+          function()
+            harpoon:list():select(1)
+          end,
+          'Harpoon 1',
+        },
+        ['<leader>w'] = {
+          function()
+            harpoon:list():select(2)
+          end,
+          'Harpoon 2',
+        },
+        ['<leader>e'] = {
+          function()
+            harpoon:list():select(3)
+          end,
+          'Harpoon 3',
+        },
+        ['<leader>r'] = {
+          function()
+            harpoon:list():select(4)
+          end,
+          'Harpoon 4',
+        },
+        ['<leader>ha'] = {
+          function()
+            harpoon:list():append()
+          end,
+          'Harpoon append',
+        },
+        ['<leader>hh'] = {
+          function()
+            harpoon.ui:toggle_quick_menu(harpoon:list())
+          end,
+          'Harpoon view',
+        },
+        ['<leader>ht'] = {
+          function()
+            toggle_telescope(harpoon:list())
+          end,
+          'Harpoon telescope',
+        },
+      }
+    end,
+  },
   {
     'iamcco/markdown-preview.nvim',
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
