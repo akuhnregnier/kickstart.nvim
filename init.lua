@@ -892,6 +892,17 @@ require('lazy').setup({
       theme = 'gruvbox',
       sections = {
         lualine_b = { 'branch' },
+        lualine_c = {
+          'filename',
+          '%=',
+          {
+            'harpoon2',
+            indicators = { 'Q', 'W', 'E', 'R' },
+            active_indicators = { '[Q]', '[W]', '[E]', '[R]' },
+            _separator = ' ',
+            no_harpoon = 'Harpoon not loaded',
+          },
+        },
         lualine_x = { 'copilot', 'encoding', 'fileformat', 'filetype' },
       },
       extensions = {
@@ -1140,6 +1151,16 @@ require('lazy').setup({
     dependencies = {
       'zbirenbaum/copilot.lua',
       'hrsh7th/nvim-cmp',
+    },
+  },
+  {
+    'letieu/harpoon-lualine',
+    dependencies = {
+      {
+        'ThePrimeagen/harpoon',
+        branch = 'harpoon2',
+      },
+      'nvim-lualine/lualine.nvim',
     },
   },
 }, {
