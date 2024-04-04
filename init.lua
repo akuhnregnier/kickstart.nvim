@@ -1043,6 +1043,7 @@ require('lazy').setup({
   { 'tpope/vim-fugitive' },
   { 'tpope/vim-unimpaired' },
   { 'tpope/vim-vinegar' },
+  { 'tpope/vim-repeat' },
   {
     'akinsho/toggleterm.nvim',
     version = 'v2.10.x',
