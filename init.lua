@@ -135,6 +135,10 @@ vim.opt.updatetime = 250
 -- Displays which-key popup sooner
 vim.opt.timeoutlen = 300
 
+-- Prevent <esc>j from triggering <alt>j which then moves lines/selections
+-- around.
+vim.opt.ttimeoutlen = 0
+
 -- Configure how new splits should be opened
 vim.opt.splitright = true
 vim.opt.splitbelow = true
