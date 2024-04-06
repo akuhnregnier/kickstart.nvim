@@ -1253,6 +1253,9 @@ require('lazy').setup({
   {
     'andymass/vim-matchup',
   },
+  {
+    'hiphish/rainbow-delimiters.nvim',
+  },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
