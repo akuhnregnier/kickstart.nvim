@@ -1334,6 +1334,13 @@ require('lazy').setup({
       end)
     end,
   },
+  {
+    'jinh0/eyeliner.nvim',
+    opts = {
+      highlight_on_key = true,
+      dim = true,
+    },
+  },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
