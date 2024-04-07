@@ -1349,6 +1349,13 @@ require('lazy').setup({
       require('lsp_signature').setup(opts)
     end,
   },
+  {
+    'whiteinge/diffconflicts',
+    config = function()
+      vim.keymap.set('n', '<leader>gm', '<cmd>:DiffConflictsWithHistory<cr>', { desc = 'merge with history' })
+      vim.keymap.set('n', '<leader>gM', '<cmd>:DiffConflicts<cr>', { desc = 'merge without history' })
+    end,
+  },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
