@@ -1089,10 +1089,16 @@ require('lazy').setup({
   {
     'chrisgrieser/nvim-various-textobjs',
     lazy = false,
-    opts = {
-      useDefaultKeymaps = true,
-      disabledKeymaps = { 'gc', 'gw' },
-    },
+    config = function()
+      require('various-textobjs').setup {
+        useDefaultKeymaps = true,
+        disabledKeymaps = { 'gc', 'gw' },
+      }
+      -- various-textobjs maps 'r' in both 'o' and 'x' modes. Keep only the 'o'
+      -- mapping to still allow replacing selected text with 'r' in visual
+      -- mode.
+      vim.keymap.del('x', 'r')
+    end,
   },
   { 'mechatroner/rainbow_csv', version = '4.3' },
   {
