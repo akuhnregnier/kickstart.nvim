@@ -1184,7 +1184,7 @@ require('lazy').setup({
         {
           '<leader>ha',
           function()
-            harpoon:list():append()
+            harpoon:list():add()
           end,
           name = 'Harpoon append',
         },
