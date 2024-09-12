@@ -791,15 +791,6 @@ require('lazy').setup({
       'hrsh7th/cmp-path',
       {
         'onsails/lspkind.nvim',
-        config = function()
-          local lspkind = require 'lspkind'
-          lspkind.init {
-            symbol_map = {
-              Copilot = '',
-            },
-          }
-          vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#6CC644' })
-        end,
       },
     },
     config = function()
@@ -864,7 +855,6 @@ require('lazy').setup({
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },
         sources = {
-          { name = 'copilot' },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
@@ -882,7 +872,6 @@ require('lazy').setup({
             cmp.config.compare.locality,
             cmp.config.compare.score,
             cmp.config.compare.recently_used,
-            require('copilot_cmp.comparators').prioritize,
             -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
             cmp.config.compare.kind,
             cmp.config.compare.sort_text,
@@ -982,7 +971,7 @@ require('lazy').setup({
               no_harpoon = 'Harpoon not loaded',
             },
           },
-          lualine_x = { 'copilot', 'encoding', 'fileformat', 'filetype' },
+          lualine_x = { 'encoding', 'fileformat', 'filetype' },
         },
         extensions = {
           verbose_quickfix,
@@ -1224,34 +1213,6 @@ require('lazy').setup({
   },
   { 'jikkujose/vim-visincr' },
   {
-    'zbirenbaum/copilot.lua',
-    cmd = 'Copilot',
-    event = 'InsertEnter',
-    config = function()
-      require('copilot').setup {
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      }
-    end,
-  },
-  {
-    'AndreM222/copilot-lualine',
-    dependencies = {
-      'zbirenbaum/copilot.lua',
-      'nvim-lualine/lualine.nvim',
-    },
-  },
-  {
-    'zbirenbaum/copilot-cmp',
-    config = function()
-      require('copilot_cmp').setup()
-    end,
-    dependencies = {
-      'zbirenbaum/copilot.lua',
-      'hrsh7th/nvim-cmp',
-    },
-  },
-  {
     'letieu/harpoon-lualine',
     dependencies = {
       {
@@ -1365,6 +1326,14 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>gm', '<cmd>:DiffConflictsWithHistory<cr>', { desc = 'merge with history' })
       vim.keymap.set('n', '<leader>gM', '<cmd>:DiffConflicts<cr>', { desc = 'merge without history' })
     end,
+  },
+  {
+    'folke/zen-mode.nvim',
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
   },
 }, {
   ui = {
