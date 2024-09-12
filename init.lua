@@ -324,7 +324,7 @@ require('lazy').setup({
             gs.diffthis '~'
           end, { desc = 'diff this' })
 
-          require('which-key').register { ['<leader>gq'] = { name = '[Q]uickfix', _ = 'which_key_ignore' } }
+          require('which-key').add { { '<leader>gq', 'which_key_ignore', name = '[Q]uickfix' } }
           map('n', '<leader>gqa', function()
             gs.setqflist 'all'
           end, { desc = 'add all hunks to quickfix' })
@@ -332,7 +332,7 @@ require('lazy').setup({
             gs.setqflist()
           end, { desc = 'add hunks from current buffer to quickfix' })
 
-          require('which-key').register { ['<leader>gt'] = { name = '[T]oggle', _ = 'which_key_ignore' } }
+          require('which-key').add { { '<leader>gt', 'which_key_ignore', name = '[T]oggle' } }
           map('n', '<leader>gtb', gs.toggle_current_line_blame, { desc = 'toggle current line blame' })
           map('n', '<leader>gtd', gs.toggle_deleted, { desc = 'toggle deleted' })
 
@@ -365,14 +365,14 @@ require('lazy').setup({
       require('which-key').setup()
 
       -- Document existing key chains
-      require('which-key').register {
-        ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-        ['<leader>h'] = { name = '[H]arpoon', _ = 'which_key_ignore' },
-        ['<leader>l'] = { name = '[L]SP', _ = 'which_key_ignore' },
-        ['gz'] = { name = 'Surround', _ = 'which_key_ignore' },
+      require('which-key').add {
+        { '<leader>c', name = '[C]ode' },
+        { '<leader>d', name = '[D]ocument' },
+        { '<leader>s', name = '[S]earch' },
+        { '<leader>g', name = '[G]it' },
+        { '<leader>h', name = '[H]arpoon' },
+        { '<leader>l', name = '[L]SP' },
+        { 'gz', name = 'Surround' },
       }
     end,
   },
@@ -1096,11 +1096,8 @@ require('lazy').setup({
     'niuiic/code-shot.nvim',
     dependencies = { 'niuiic/core.nvim' },
     config = function()
-      require('which-key').register {
-        ['<leader>cs'] = {
-          "<cmd>lua require('code-shot').shot()<CR>",
-          'code-shot',
-        },
+      require('which-key').add {
+        { '<leader>cs', "<cmd>lua require('code-shot').shot()<CR>", desc = 'code-shot' },
       }
     end,
   },
@@ -1155,48 +1152,55 @@ require('lazy').setup({
       end
 
       -- keys
-      require('which-key').register {
-        ['<leader>q'] = {
+      require('which-key').add {
+        {
+          '<leader>q',
           function()
             harpoon:list():select(1)
           end,
-          'Harpoon 1',
+          name = 'Harpoon 1',
         },
-        ['<leader>w'] = {
+        {
+          '<leader>w',
           function()
             harpoon:list():select(2)
           end,
-          'Harpoon 2',
+          name = 'Harpoon 2',
         },
-        ['<leader>e'] = {
+        {
+          '<leader>e',
           function()
             harpoon:list():select(3)
           end,
-          'Harpoon 3',
+          name = 'Harpoon 3',
         },
-        ['<leader>r'] = {
+        {
+          '<leader>r',
           function()
             harpoon:list():select(4)
           end,
-          'Harpoon 4',
+          name = 'Harpoon 4',
         },
-        ['<leader>ha'] = {
+        {
+          '<leader>ha',
           function()
             harpoon:list():append()
           end,
-          'Harpoon append',
+          name = 'Harpoon append',
         },
-        ['<leader>hh'] = {
+        {
+          '<leader>hh',
           function()
             harpoon.ui:toggle_quick_menu(harpoon:list())
           end,
-          'Harpoon view',
+          name = 'Harpoon view',
         },
-        ['<leader>ht'] = {
+        {
+          '<leader>ht',
           function()
             toggle_telescope(harpoon:list())
           end,
-          'Harpoon telescope',
+          name = 'Harpoon telescope',
         },
       }
     end,
