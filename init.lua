@@ -1052,7 +1052,6 @@ require('lazy').setup({
   { 'lukas-reineke/indent-blankline.nvim', main = 'ibl', opts = {} },
   { 'tpope/vim-fugitive' },
   { 'tpope/vim-unimpaired' },
-  { 'tpope/vim-vinegar' },
   { 'tpope/vim-repeat' },
   {
     'akinsho/toggleterm.nvim',
@@ -1331,6 +1330,22 @@ require('lazy').setup({
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
     },
+  },
+  {
+    'stevearc/oil.nvim',
+    ---@module 'oil'
+    ---@type oil.SetupOpts
+    -- Optional dependencies
+    dependencies = { 'nvim-tree/nvim-web-devicons' }, -- use if prefer nvim-web-devicons
+    config = function()
+      local oil = require 'oil'
+
+      oil.setup()
+
+      vim.keymap.set('n', '-', function()
+        oil.open()
+      end, { desc = 'open oil' })
+    end,
   },
 }, {
   ui = {
