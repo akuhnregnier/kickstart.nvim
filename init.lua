@@ -673,7 +673,7 @@ require('lazy').setup({
         taplo = {
           capabilities = capabilities,
         },
-        ruff_lsp = {
+        ['ruff-lsp'] = {
           settings = {
             organizeImports = true,
           },
@@ -1089,8 +1089,10 @@ require('lazy').setup({
     lazy = false,
     config = function()
       require('various-textobjs').setup {
-        useDefaultKeymaps = true,
-        disabledKeymaps = { 'gc', 'gw' },
+        keymaps = { 
+            useDefaults = true, 
+            disabledDefaults = { 'gc', 'gw' },
+        },
       }
       -- various-textobjs maps 'r' in both 'o' and 'x' modes. Keep only the 'o'
       -- mapping to still allow replacing selected text with 'r' in visual
